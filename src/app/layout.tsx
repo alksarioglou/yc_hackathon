@@ -25,6 +25,10 @@ export const metadata: Metadata = {
   title: "Ad Astra — A new frontier in Geo targeting",
   description:
     "From one product URL: build your ICP, find where your leads cluster, and fly a drone swarm that paints a QR code in the sky just for them.",
+  icons: {
+    icon: "/ad astra logo.png",
+    apple: "/ad astra logo.png",
+  },
 };
 
 export default function RootLayout({

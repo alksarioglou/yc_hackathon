@@ -468,6 +468,21 @@ function qrModuleColor(row: number, col: number, t: number, phase: number) {
   return { r: c.r, g: c.g, b: c.b, a: pulse };
 }
 
+function drawLegibleLabel(
+  ctx: CanvasRenderingContext2D,
+  text: string,
+  x: number,
+  y: number,
+  fill: string,
+) {
+  ctx.strokeStyle = "rgba(241, 239, 233, 0.95)";
+  ctx.lineWidth = 3;
+  ctx.lineJoin = "round";
+  ctx.strokeText(text, x, y);
+  ctx.fillStyle = fill;
+  ctx.fillText(text, x, y);
+}
+
 function drawSceneLabels(
   ctx: CanvasRenderingContext2D,
   w: number,
@@ -477,26 +492,25 @@ function drawSceneLabels(
   t: number,
 ) {
   const qrScreen = projectWorld(qrPos.x, qrPos.y + 4, qrPos.z, w, h, basis);
-  const targetScreen = projectWorld(TARGET_WORLD.x, 2, TARGET_WORLD.z, w, h, basis);
   if (!qrScreen) return;
 
   ctx.font = "600 9px var(--font-michroma), monospace";
   ctx.textAlign = "left";
-  ctx.fillStyle = "rgba(11, 11, 11, 0.55)";
-  ctx.fillText("SWARM · 462 DRONES", qrScreen.sx + 12, qrScreen.sy - 6);
-  ctx.fillStyle = "rgba(238, 75, 30, 0.75)";
-  ctx.fillText("180M ALTITUDE", qrScreen.sx + 12, qrScreen.sy + 8);
+  drawLegibleLabel(
+    ctx,
+    "SWARM · 462 DRONES",
+    qrScreen.sx + 12,
+    qrScreen.sy - 6,
+    "rgba(11, 11, 11, 0.9)",
+  );
+  drawLegibleLabel(
+    ctx,
+    "180M ALTITUDE",
+    qrScreen.sx + 12,
+    qrScreen.sy + 8,
+    "rgba(238, 75, 30, 0.95)",
+  );
 
-  if (targetScreen) {
-    ctx.textAlign = "center";
-    ctx.fillStyle = `rgba(11, 11, 11, ${0.4 + Math.sin(t * 1.6) * 0.15})`;
-    ctx.fillText("LEAD CLUSTER", targetScreen.sx, targetScreen.sy - 8);
-  }
-
-  ctx.textAlign = "right";
-  ctx.fillStyle = "rgba(11, 11, 11, 0.35)";
-  ctx.font = "500 8px var(--font-jost), sans-serif";
-  ctx.fillText("Drag to explore · Scroll to zoom", w - 16, h - 14);
 }
 
 function drawQRFormation(
@@ -797,8 +811,8 @@ export function SkylineQRBackdrop({ className = "" }: { className?: string }) {
   return (
     <canvas
       ref={canvasRef}
-      aria-label="Interactive 3D city preview. Drag to orbit, scroll to zoom, shift-drag to pan."
-      className={`cursor-grab touch-none select-none active:cursor-grabbing ${className}`}
+      aria-label="3D city preview"
+      className={`touch-none select-none ${className}`}
     />
   );
 }

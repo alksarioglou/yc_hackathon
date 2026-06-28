@@ -6,7 +6,7 @@ const SAMPLE_COUNT = 96;
 const DRAW_DURATION = 22;
 const LOOP_PAUSE = 5;
 const BASE_LEADS = 412;
-const PEAK_LEADS = 4287;
+const PEAK_LEADS = 10_000_000;
 const EXP_RATE = 4.5;
 const EXP_DENOM = Math.exp(EXP_RATE) - 1;
 
@@ -190,10 +190,10 @@ export function LeadsGrowthLine({ className = "" }: { className?: string }) {
     >
       <canvas ref={canvasRef} className="h-full w-full" />
       <div className="absolute bottom-5 left-6 flex items-baseline gap-2 sm:left-10">
-        <span className="label text-[0.55rem] text-muted/70">Leads</span>
+        <span className="label text-[0.55rem] text-ink/70">Leads</span>
         <span
           ref={countRef}
-          className="font-[family-name:var(--font-michroma)] text-sm tabular-nums tracking-wide text-ink/75"
+          className="font-[family-name:var(--font-michroma)] text-sm tabular-nums tracking-wide text-ink [text-shadow:0_0_12px_rgba(241,239,233,0.9)]"
         >
           {BASE_LEADS.toLocaleString()}
         </span>

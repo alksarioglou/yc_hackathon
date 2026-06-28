@@ -3,6 +3,7 @@
 import { APIProvider, useApiIsLoaded } from "@vis.gl/react-google-maps";
 import dynamic from "next/dynamic";
 import Link from "next/link";
+import { AdAstraLogo } from "@/components/AdAstraLogo";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { CampaignDrawer } from "@/components/preview/CampaignDrawer";
 import { FlowSpotlight } from "@/components/preview/FlowViewGuide";
@@ -423,9 +424,13 @@ function StandalonePreviewScene() {
         header={
           <Link
             href="/"
-            className="pointer-events-auto inline-flex items-center gap-2 rounded-2xl border border-white/15 bg-white/10 px-4 py-2.5 text-white/90 shadow-lg backdrop-blur-2xl transition hover:bg-white/15"
+            className="pointer-events-auto inline-flex items-center rounded-2xl border border-white/15 bg-white/10 px-4 py-2.5 shadow-lg backdrop-blur-2xl transition hover:bg-white/15"
           >
-            <span className="text-sm font-semibold tracking-tight">Ad Astra</span>
+            <AdAstraLogo
+              markClassName="h-9 w-9"
+              showWordmark
+              wordmarkClassName="text-sm font-semibold tracking-tight text-white/90"
+            />
           </Link>
         }
         placeSearch={<PlaceSearchBar onPlaceSelect={handlePlaceSelect} />}
