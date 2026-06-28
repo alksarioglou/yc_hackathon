@@ -212,6 +212,127 @@ button:disabled,
   animation-delay: -1s;
 }
 
+/* Home hero — simplified skyline / QR motion */
+@keyframes landing-drone-a {
+  0%,
+  100% {
+    transform: translate(0, 0);
+    opacity: 0.35;
+  }
+  25% {
+    transform: translate(48vw, 12vh);
+    opacity: 0.85;
+  }
+  50% {
+    transform: translate(72vw, -4vh);
+    opacity: 0.55;
+  }
+  75% {
+    transform: translate(36vw, 8vh);
+    opacity: 0.75;
+  }
+}
+
+@keyframes landing-drone-b {
+  0%,
+  100% {
+    transform: translate(0, 0) scale(1);
+    opacity: 0.4;
+  }
+  33% {
+    transform: translate(-28vw, 18vh) scale(1.2);
+    opacity: 0.9;
+  }
+  66% {
+    transform: translate(-52vw, 6vh) scale(0.9);
+    opacity: 0.5;
+  }
+}
+
+@keyframes landing-drone-c {
+  0%,
+  100% {
+    transform: translate(0, 0);
+    opacity: 0.3;
+  }
+  40% {
+    transform: translate(-18vw, -10vh);
+    opacity: 0.8;
+  }
+  70% {
+    transform: translate(-40vw, 4vh);
+    opacity: 0.55;
+  }
+}
+
+@keyframes landing-drone-d {
+  0%,
+  100% {
+    transform: translate(0, 0);
+    opacity: 0.45;
+  }
+  30% {
+    transform: translate(58vw, -6vh);
+    opacity: 0.7;
+  }
+  60% {
+    transform: translate(82vw, 14vh);
+    opacity: 0.85;
+  }
+}
+
+@keyframes landing-drone-e {
+  0%,
+  100% {
+    transform: translate(0, 0);
+    opacity: 0.35;
+  }
+  50% {
+    transform: translate(24vw, 22vh);
+    opacity: 0.8;
+  }
+}
+
+@keyframes landing-drone-trail {
+  to {
+    stroke-dashoffset: -30;
+  }
+}
+
+.landing-drone {
+  animation-timing-function: ease-in-out;
+  animation-iteration-count: infinite;
+}
+
+.drone-path-a {
+  animation-name: landing-drone-a;
+}
+
+.drone-path-b {
+  animation-name: landing-drone-b;
+}
+
+.drone-path-c {
+  animation-name: landing-drone-c;
+}
+
+.drone-path-d {
+  animation-name: landing-drone-d;
+}
+
+.drone-path-e {
+  animation-name: landing-drone-e;
+}
+
+.landing-drone-trail {
+  stroke-dasharray: 4 10;
+  animation: landing-drone-trail 3s linear infinite;
+}
+
+.landing-drone-trail-delay {
+  animation-delay: -1.4s;
+}
+
 /* Campaign analytics panel — slide from right */
 @keyframes analytics-slide-in {
   from {
