@@ -22,7 +22,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Ad Astra — A new frontier in Geo targeting",
+  title: "Ad Astra — Take your brand to the sky",
   description:
     "From one product URL: build your ICP, find where your leads cluster, and fly a drone swarm that paints a QR code in the sky just for them.",
   icons: {
