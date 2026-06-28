@@ -2,7 +2,8 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { CorridorBackdrop } from "@/components/CorridorBackdrop";
+import { LeadsGrowthLine } from "@/components/landing/LeadsGrowthLine";
+import { SkylineQRBackdrop } from "@/components/landing/SkylineQRBackdrop";
 import { BTN } from "@/components/flow/constants";
 import { FlowShell } from "@/components/flow/FlowShell";
 import { beginCampaignFlow } from "@/lib/campaignSession";

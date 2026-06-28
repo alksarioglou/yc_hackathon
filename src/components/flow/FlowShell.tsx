@@ -6,25 +6,27 @@ import { clearCampaignSession } from "@/lib/campaignSession";
 export function FlowShell({
   children,
   immersive = false,
+  className = "",
 }: {
   children: React.ReactNode;
   immersive?: boolean;
+  className?: string;
 }) {
   return (
     <div
       className={`relative z-10 flex min-h-screen w-full flex-col ${
         immersive ? "" : "mx-auto max-w-3xl px-5 py-8"
-      }`}
+      } ${className}`}
     >
       {!immersive && (
-        <header className="mb-10 flex items-center justify-between border-b border-line pb-5">
+        <header className="pointer-events-auto mb-10 flex items-center justify-between border-b border-line pb-5">
           <Link href="/" onClick={clearCampaignSession} className="flex items-center gap-3">
             <span className="h-4 w-4 bg-orange" />
             <span className="font-display text-base uppercase tracking-[0.14em] text-ink">
               Ad Astra
             </span>
           </Link>
-          <span className="label text-muted">Drone Geo-Targeting</span>
+          <span className="label text-muted">Take your brand to the sky</span>
         </header>
       )}
       {children}

@@ -1,9 +1,6 @@
 import QRCode from "qrcode";
 
-export async function generateQRMatrix(
-  url: string,
-  size = 29,
-): Promise<boolean[][]> {
+function buildQRMatrix(url: string, size = 29): boolean[][] {
   const qr = QRCode.create(url, { errorCorrectionLevel: "M" });
   const modules = qr.modules;
   const moduleCount = modules.size;
@@ -25,4 +22,15 @@ export async function generateQRMatrix(
   }
 
   return matrix;
+}
+
+export function generateQRMatrixSync(url: string, size = 29): boolean[][] {
+  return buildQRMatrix(url, size);
+}
+
+export async function generateQRMatrix(
+  url: string,
+  size = 29,
+): Promise<boolean[][]> {
+  return buildQRMatrix(url, size);
 }
