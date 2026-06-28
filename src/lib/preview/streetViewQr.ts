@@ -7,4 +7,4 @@ export function getStreetViewQrAltitude(baseAltitudeMeters: number): number {
 export const STREET_VIEW_QR_SCREEN_FRACTION = 0.1;
 
 /** Dot diameter as a fraction of cell spacing (leave gaps for scanability). */
-export const STREET_VIEW_DOT_FILL = 0.72;
+export const STREET_VIEW_DOT_FILL = 0.9;

@@ -38,23 +38,28 @@ const DOT_SIZE: Record<ViewPreset, number> = {
   qr: 22,
 };
 
+const BLACK_DRONE = "#0b0b0b";
+
 export function QRDroneMarkers({
   location,
   matrix,
   hour,
   brandColor,
   viewPreset = "skyline",
+  fixedDroneColor,
 }: {
   location: TakeoverLocation;
   matrix: boolean[][];
   hour: number;
   brandColor: string;
   viewPreset?: ViewPreset;
+  /** When set, drones always render in this color (no time-of-day tint). */
+  fixedDroneColor?: string;
 }) {
   const isNight = getTimeMode(hour) !== "day";
-  const color = isNight ? brandColor : "#0f172a";
+  const color = fixedDroneColor ?? (isNight ? brandColor : BLACK_DRONE);
   const dotSize = DOT_SIZE[viewPreset];
-  const glow = isNight || viewPreset !== "skyline";
+  const glow = fixedDroneColor ? false : isNight || viewPreset !== "skyline";
 
   const positions = useMemo(
     () => getQRDronePositions(location, matrix),

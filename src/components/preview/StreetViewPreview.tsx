@@ -29,9 +29,10 @@ const StreetViewPreview = forwardRef<
     hour: number;
     brandColor: string;
     viewPreset: "qr";
+    fixedDroneColor?: string;
   }
 >(function StreetViewPreview(
-  { location, qrMatrix, hour, brandColor },
+  { location, qrMatrix, hour, brandColor, fixedDroneColor },
   ref,
 ) {
   const streetViewLib = useMapsLibrary("streetView");
@@ -56,8 +57,8 @@ const StreetViewPreview = forwardRef<
   const [panoramaReady, setPanoramaReady] = useState(false);
 
   const isNight = getTimeMode(hour) !== "day";
-  const dotColor = isNight ? brandColor : "#22d3ee";
-  const glow = true;
+  const dotColor = fixedDroneColor ?? (isNight ? brandColor : "#22d3ee");
+  const glow = !fixedDroneColor;
 
   useImperativeHandle(ref, () => ({
     zoomIn: () => {

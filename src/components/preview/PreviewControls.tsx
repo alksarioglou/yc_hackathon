@@ -68,6 +68,9 @@ export function PreviewControls({
   onResetView,
   onOpenSettings,
   settingsOpen,
+  showSettings = true,
+  highlightPresets = [],
+  tourFocusPreset = null,
 }: {
   activeLocationName: string;
   activeLocationTagline?: string;
@@ -79,15 +82,28 @@ export function PreviewControls({
   onZoomIn: () => void;
   onZoomOut: () => void;
   onResetView: () => void;
-  onOpenSettings: () => void;
-  settingsOpen: boolean;
+  onOpenSettings?: () => void;
+  settingsOpen?: boolean;
+  showSettings?: boolean;
+  highlightPresets?: ViewPreset[];
+  tourFocusPreset?: ViewPreset | null;
 }) {
+  const tourActive = tourFocusPreset != null;
+
   return (
     <>
       {/* City + view bar */}
-      <div className="pointer-events-auto absolute bottom-8 left-1/2 z-20 w-[calc(100%-2rem)] max-w-2xl -translate-x-1/2">
+      <div
+        className={`absolute bottom-8 left-1/2 w-[calc(100%-2rem)] max-w-2xl -translate-x-1/2 ${
+          tourActive ? "pointer-events-none z-[48]" : "pointer-events-auto z-20"
+        }`}
+      >
         <div className={`rounded-2xl p-2 ${GLASS}`}>
-          <div className="mb-2 flex items-center justify-between px-2 pt-1">
+          <div
+            className={`mb-2 flex items-center justify-between px-2 pt-1 transition-opacity ${
+              tourActive ? "opacity-30" : ""
+            }`}
+          >
             <div>
               <p className="text-[10px] font-medium uppercase tracking-[0.2em] text-white/45">
                 Location
@@ -105,32 +121,53 @@ export function PreviewControls({
             </div>
           </div>
 
-          <p className="px-2 pb-2 text-center text-[10px] text-white/35">
+          <p
+            className={`px-2 pb-2 text-center text-[10px] text-white/35 transition-opacity ${
+              tourActive ? "opacity-30" : ""
+            }`}
+          >
             {VIEW_PRESETS.find((p) => p.id === viewPreset)?.hint ??
               "Scroll or pinch to zoom · drag to orbit · right-drag to pan"}
           </p>
 
           <div className="mt-1 flex gap-1 border-t border-white/10 px-1 pt-2">
-            {VIEW_PRESETS.map((p) => (
-              <button
-                key={p.id}
-                type="button"
-                onClick={() => onViewPresetChange(p.id)}
-                className={`flex-1 rounded-lg py-1.5 text-xs font-medium transition ${
-                  viewPreset === p.id
-                    ? "bg-cyan-400/20 text-cyan-200"
-                    : "text-white/45 hover:bg-white/5 hover:text-white/70"
-                }`}
-              >
-                {p.label}
-              </button>
-            ))}
+            {VIEW_PRESETS.map((p) => {
+              const isTourFocus = tourFocusPreset === p.id;
+              return (
+                <button
+                  key={p.id}
+                  type="button"
+                  data-tour-focus={isTourFocus ? p.id : undefined}
+                  onClick={() => onViewPresetChange(p.id)}
+                  disabled={tourActive && !isTourFocus}
+                  className={`relative flex-1 rounded-lg py-1.5 text-xs font-medium transition ${
+                    isTourFocus
+                      ? "pointer-events-auto z-[49] scale-[1.08] bg-orange font-semibold text-white shadow-[0_0_28px_rgba(238,75,30,0.65)] ring-2 ring-orange ring-offset-2 ring-offset-black/40"
+                      : viewPreset === p.id
+                        ? "bg-cyan-400/20 text-cyan-200"
+                        : highlightPresets.includes(p.id)
+                          ? "animate-pulse bg-orange/25 text-orange ring-1 ring-orange/50"
+                          : tourActive
+                            ? "cursor-not-allowed text-white/20"
+                            : "text-white/45 hover:bg-white/5 hover:text-white/70"
+                  }`}
+                >
+                  {p.label}
+                </button>
+              );
+            })}
           </div>
         </div>
       </div>
 
       {/* Zoom rail */}
-      <div className="pointer-events-auto absolute right-5 top-1/2 z-20 -translate-y-1/2">
+      <div
+        className={`absolute right-5 top-1/2 -translate-y-1/2 ${
+          tourActive
+            ? "pointer-events-none z-[44] opacity-30 blur-[1px]"
+            : "pointer-events-auto z-20"
+        }`}
+      >
         <div className={`flex flex-col items-center gap-1 rounded-2xl p-1.5 ${GLASS}`}>
           <button
             type="button"
@@ -159,19 +196,20 @@ export function PreviewControls({
         </div>
       </div>
 
-      {/* Settings trigger */}
-      <button
-        type="button"
-        onClick={onOpenSettings}
-        aria-label="Campaign settings"
-        className={`pointer-events-auto absolute right-5 top-6 z-20 flex h-11 w-11 items-center justify-center rounded-2xl transition active:scale-95 ${GLASS} ${
-          settingsOpen
-            ? "bg-white/20 text-white"
-            : "text-white/80 hover:bg-white/15"
-        }`}
-      >
-        <IconSettings />
-      </button>
+      {showSettings && onOpenSettings && (
+        <button
+          type="button"
+          onClick={onOpenSettings}
+          aria-label="Campaign settings"
+          className={`pointer-events-auto absolute right-5 top-6 z-20 flex h-11 w-11 items-center justify-center rounded-2xl transition active:scale-95 ${GLASS} ${
+            settingsOpen
+              ? "bg-white/20 text-white"
+              : "text-white/80 hover:bg-white/15"
+          }`}
+        >
+          <IconSettings />
+        </button>
+      )}
     </>
   );
 }

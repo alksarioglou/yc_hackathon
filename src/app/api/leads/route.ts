@@ -35,13 +35,16 @@ decide where the leads physically cluster and the single best time + place to fl
 swarm that paints a QR code in the sky for them.
 Return ONLY JSON with this exact shape:
 {
-  "geo": { "city": string, "cluster": string, "why": string },
+  "geo": { "city": string, "cluster": string, "why": string, "address": string },
   "leads": [ { "name": string, "title": string, "company": string, "location": string } ],  // exactly 5; use the REAL company names provided and realistic full names (never placeholders like "John Doe")
   "timing": { "when": string, "where": string, "why": string }
 }
 Ground "city" in the real locations provided (pick the densest). The cluster must be a
-specific named district/venue. Timing must be vivid and specific (exact local time + physical
-vantage point) and the "why" must tie to the ICP's daily rhythm.`;
+specific named district/venue. "address" must be a precise, geocodable street address or
+intersection including city and state (e.g. "2nd St & Howard St, San Francisco, CA 94105" or
+"1600 Amphitheatre Pkwy, Mountain View, CA 94043") — never just a city name.
+Timing must be vivid and specific (exact local time + physical vantage point) and the
+"why" must tie to the ICP's daily rhythm.`;
 
 // POST /api/leads  { premise } -> LeadsResult
 export async function POST(req: Request) {
@@ -117,6 +120,15 @@ ${
 
     if (!result?.geo?.city) {
       return NextResponse.json(mockLeads);
+    }
+
+    if (!result.geo.address?.trim()) {
+      const where = (result.timing?.where ?? result.geo.cluster)
+        .replace(/^drone formation above\s+/i, "")
+        .replace(/^above\s+/i, "")
+        .replace(/,?\s*facing\b.*$/i, "")
+        .trim();
+      result.geo.address = [where, result.geo.city].filter(Boolean).join(", ");
     }
 
     // Prefer REAL Orange Slice leads (keeps real LinkedIn URLs); fall back to synth.

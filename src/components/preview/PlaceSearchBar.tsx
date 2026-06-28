@@ -15,8 +15,12 @@ const GLASS =
 
 export function PlaceSearchBar({
   onPlaceSelect,
+  variant = "overlay",
+  placeholder = "Search any address or venue…",
 }: {
   onPlaceSelect: (place: SelectedPlace) => void;
+  variant?: "overlay" | "inline";
+  placeholder?: string;
 }) {
   const places = useMapsLibrary("places");
   const hostRef = useRef<HTMLDivElement>(null);
@@ -48,8 +52,11 @@ export function PlaceSearchBar({
     if (!places || !hostRef.current) return;
 
     const el = new places.PlaceAutocompleteElement();
-    el.placeholder = "Search any address or venue…";
-    el.className = "stellar-place-autocomplete";
+    el.placeholder = placeholder;
+    el.className =
+      variant === "overlay"
+        ? "stellar-place-autocomplete"
+        : "stellar-place-autocomplete stellar-place-autocomplete--light";
 
     hostRef.current.appendChild(el);
     autocompleteRef.current = el;
@@ -65,12 +72,15 @@ export function PlaceSearchBar({
       el.remove();
       autocompleteRef.current = null;
     };
-  }, [places, handleSelect]);
+  }, [places, handleSelect, placeholder, variant]);
+
+  const wrapperClass =
+    variant === "overlay"
+      ? `pointer-events-auto absolute left-1/2 top-6 z-20 w-[calc(100%-8rem)] max-w-md -translate-x-1/2 rounded-2xl p-1.5 ${GLASS}`
+      : "w-full rounded-sm border border-line bg-paper-pure px-1 py-0.5";
 
   return (
-    <div
-      className={`pointer-events-auto absolute left-1/2 top-6 z-20 w-[calc(100%-8rem)] max-w-md -translate-x-1/2 rounded-2xl p-1.5 ${GLASS}`}
-    >
+    <div className={wrapperClass}>
       <div ref={hostRef} className="stellar-place-autocomplete-host" />
     </div>
   );

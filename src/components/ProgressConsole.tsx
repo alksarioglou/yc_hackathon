@@ -9,13 +9,17 @@ export function ProgressConsole({
   title,
   lines,
   done,
+  onComplete,
 }: {
   title: string;
   lines: string[];
   done: boolean;
+  /** Fired once after every line has been revealed. */
+  onComplete?: () => void;
 }) {
   const [visible, setVisible] = useState(1);
   const timer = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const completed = useRef(false);
 
   useEffect(() => {
     if (visible >= lines.length) return;
@@ -26,6 +30,13 @@ export function ProgressConsole({
       if (timer.current) clearTimeout(timer.current);
     };
   }, [visible, lines.length]);
+
+  useEffect(() => {
+    if (visible < lines.length || !onComplete || completed.current) return;
+    completed.current = true;
+    const finish = setTimeout(onComplete, 500);
+    return () => clearTimeout(finish);
+  }, [visible, lines.length, onComplete]);
 
   const shown = lines.slice(0, visible);
 

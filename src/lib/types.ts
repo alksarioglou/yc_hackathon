@@ -22,6 +22,8 @@ export interface GeoCluster {
   cluster: string;
   /** Why the leads concentrate here. */
   why: string;
+  /** Precise geocodable street address or intersection for map placement. */
+  address: string;
 }
 
 export interface Timing {

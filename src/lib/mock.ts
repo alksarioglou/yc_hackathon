@@ -39,6 +39,7 @@ export const mockLeads: LeadsResult = {
     city: "San Francisco, CA",
     cluster: "SoMa / 2nd Street tech corridor",
     why: "Highest density of 50–500 person B2B SaaS HQs in the country, with thousands of matching operations and engineering managers working on-site within a four-block radius.",
+    address: "2nd St & Howard St, San Francisco, CA 94105",
   },
   leads: [
     { name: "Priya Nair", title: "Head of Operations", company: "Vantage Labs", location: "San Francisco, CA" },

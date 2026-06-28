@@ -40,10 +40,19 @@ const GoogleMap3DPreview = forwardRef<
     hour: number;
     brandColor: string;
     viewPreset: ViewPreset;
+    fixedDroneColor?: string;
     onCameraChange?: (camera: Map3DCamera) => void;
   }
 >(function GoogleMap3DPreview(
-  { location, qrMatrix, hour, brandColor, viewPreset, onCameraChange },
+  {
+    location,
+    qrMatrix,
+    hour,
+    brandColor,
+    viewPreset,
+    fixedDroneColor,
+    onCameraChange,
+  },
   ref,
 ) {
   const mapRef = useRef<Map3DRef>(null);
@@ -115,7 +124,13 @@ const GoogleMap3DPreview = forwardRef<
 
   useEffect(() => {
     flyCamera(getMap3DCamera(location, viewPreset), 1800);
-  }, [location.latitude, location.longitude, location.name, viewPreset]);
+  }, [
+    location.latitude,
+    location.longitude,
+    location.name,
+    location.tagline,
+    viewPreset,
+  ]);
 
   return (
     <Map3D
@@ -149,6 +164,7 @@ const GoogleMap3DPreview = forwardRef<
         hour={hour}
         brandColor={brandColor}
         viewPreset={viewPreset}
+        fixedDroneColor={fixedDroneColor}
       />
     </Map3D>
   );

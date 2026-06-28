@@ -8,7 +8,9 @@
  * @module
  */
 
+import type * as campaignSessions from "../campaignSessions.js";
 import type * as tasks from "../tasks.js";
+import type * as validators from "../validators.js";
 
 import type {
   ApiFromModules,
@@ -17,7 +19,9 @@ import type {
 } from "convex/server";
 
 declare const fullApi: ApiFromModules<{
+  campaignSessions: typeof campaignSessions;
   tasks: typeof tasks;
+  validators: typeof validators;
 }>;
 
 /**

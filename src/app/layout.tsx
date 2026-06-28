@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Jost, Michroma, Geist_Mono } from "next/font/google";
+import { ConvexClientProvider } from "@/components/ConvexClientProvider";
 import "./globals.css";
 
 // Jost — a free geometric sans in the spirit of Futura (the 2001 title typeface).
@@ -36,7 +37,9 @@ export default function RootLayout({
       lang="en"
       className={`${jost.variable} ${michroma.variable} ${geistMono.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col">{children}</body>
+      <body className="min-h-full flex flex-col">
+        <ConvexClientProvider>{children}</ConvexClientProvider>
+      </body>
     </html>
   );
 }
