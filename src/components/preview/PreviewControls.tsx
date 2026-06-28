@@ -1,6 +1,6 @@
 "use client";
 
-import type { ViewPreset } from "./CesiumPreview";
+import type { ViewPreset } from "./GoogleMap3DPreview";
 
 const GLASS =
   "border border-white/20 bg-white/10 shadow-[0_8px_32px_rgba(0,0,0,0.25)] backdrop-blur-2xl";
@@ -124,6 +124,10 @@ export function PreviewControls({
               );
             })}
           </div>
+
+          <p className="px-2 pb-1 text-center text-[10px] text-white/35">
+            Scroll or pinch to zoom · drag to orbit · right-drag to pan
+          </p>
 
           <div className="mt-1 flex gap-1 border-t border-white/10 px-1 pt-2">
             {VIEW_PRESETS.map((p) => (
