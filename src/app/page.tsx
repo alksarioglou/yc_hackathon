@@ -154,19 +154,16 @@ export default function Home() {
             <CorridorBackdrop className="h-full w-full" />
           </div>
 
-          <p className="label mb-6 text-orange">Mission · 001</p>
           <h1
             className="display text-balance text-4xl leading-[1.05] sm:text-6xl"
             style={{ fontWeight: 480 }}
           >
-            A new frontier in
+            You&apos;re paying for ads
             <br />
-            <span className="text-orange">Geo targeting</span>
+            <span className="text-orange">no one looks at.</span>
           </h1>
-          <p className="mt-6 max-w-xl text-lg leading-relaxed text-muted">
-            Drop in your product URL. We build your ICP, find where your leads
-            cluster, pick the perfect moment, and fly a drone swarm that paints a
-            QR code in the sky — just for them.
+          <p className="mt-6 max-w-xl text-xl leading-snug text-ink">
+            Ad Astra makes them look up — a drone-drawn QR code in the sky.
           </p>
 
           <div className="mt-10 flex flex-col gap-3 sm:flex-row">
@@ -182,6 +179,12 @@ export default function Home() {
               Analyze product
             </button>
           </div>
+
+          <p className="mt-6 max-w-xl text-sm leading-relaxed text-muted">
+            Paste a product URL. We build your ICP, find your real buyers, and
+            pinpoint exactly where and when they cluster — then a drone swarm
+            draws a scannable QR code in the sky right above them.
+          </p>
         </section>
       )}
 
@@ -333,7 +336,7 @@ function PremiseCard({
       <p className="label mb-3 text-orange">Mission · 002 · Target profile</p>
       <h2 className="display text-3xl">Here&apos;s what we found</h2>
       <p className="mt-2 text-muted">
-        Review and edit anything before we hunt for leads.
+        Review and refine your ICP before we find the people who match it.
       </p>
 
       <div className="mt-8 space-y-6 border border-line bg-panel p-7">
